@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Consent – Documentație & Exemplu</title>
+    <style>
+        body {
+            margin:0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto;
+            background:#f6f7f9;
+            color:#222;
+            line-height:1.6;
+        }
+
+        header {
+            background:white;
+            border-bottom:1px solid #ddd;
+            padding:12px 20px;
+            display:flex;
+            align-items:center;
+            position:sticky;
+            top:0;
+            z-index:20;
+        }
+
+        header img {
+            height:40px;
+            margin-right:12px;
+        }
+
+        main {
+            padding:30px 20px;
+            max-width:900px;
+            margin:auto;
+        }
+
+        h1 {
+            font-size:28px;
+            margin-top:0;
+            color:#185A7D;
+        }
+
+        h2 {
+            margin-top:40px;
+            color:#333;
+        }
+
+        .section {
+            margin-bottom:80px;
+        }
+
+        pre {
+            background:#1e1e1e;
+            color:#eee;
+            padding:20px;
+            border-radius:8px;
+            overflow-x:auto;
+            font-size:14px;
+            line-height:1.4;
+        }
+
+        footer {
+            text-align:center;
+            padding:40px 0;
+            color:#666;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://webrt.eu/img/wrt.png" alt="Logo">
+    <strong>Cookie Consent – Documentație</strong>
+</header>
+
+<main>
+    <h1>Documentație și Exemplu pentru Scriptul Cookie Consent</h1>
+
+    <div class="section">
+        <p>
+            Această pagină demonstrează modul de utilizare al scriptului personalizat <strong>CookieConsent</strong>.
+            Scriptul este autonom, extrem de flexibil și permite activarea/dezactivarea automată a scripturilor
+            (Google Analytics, iframe-uri, embed-uri, reclame etc.) în funcție de preferințele utilizatorului.
+        </p>
+
+        <p>
+            Demo-ul este live chiar pe această pagină — apăsați butonul plutitor din dreapta-jos pentru a deschide fereastra de consimțământ.
+        </p>
+    </div>
+
+    <h2>1. Cum se include scriptul în pagină</h2>
+    <p>
+        Creezi un fișier <code>cookie-consent.js</code> și pui în el tot codul JavaScript.
+        Apoi îl imporți în orice pagină:
+    </p>
+
+    <pre>
+&lt;script src="cookie-consent.js"&gt;&lt;/script&gt;
+    </pre>
+
+    <h2>2. Cum marchezi scripturile care depind de consimțământ</h2>
+    <p>
+        Exemplu pentru Google Analytics sau alte scripturi care NU trebuie încărcate fără accept:
+    </p>
+
+    <pre>
+&lt;script type="text/plain"
+        data-cookie-category="analytics"
+        data-type="text/javascript"&gt;
+    console.log("GA ar porni aici...");
+&lt;/script&gt;
+    </pre>
+
+    <h2>3. Explicație pe scurt a funcționalității</h2>
+
+    <ul>
+        <li><strong>necessary</strong> — sunt mereu activate (nu pot fi dezactivate)</li>
+        <li><strong>analytics</strong> — statistici (ex. GA4)</li>
+        <li><strong>thirdParty</strong> — embed-uri, video, reclame</li>
+        <li>Preferințele se salvează în <code>localStorage</code> și cookie</li>
+        <li>Evenimente trimise:
+            <ul>
+                <li><code>cookieConsentChanged</code></li>
+                <li><code>cookieConsentApplied</code></li>
+            </ul>
+        </li>
+        <li>Buton plutitor în dreapta-jos pentru redeschidere</li>
+    </ul>
+
+    <h2>4. Codul complet CookieConsent</h2>
+    <p>Codul JavaScript se află în fișierul <code>cookie-consent.js</code>. Mai jos este afișat pentru referință:</p>
+
+    <pre id="codeBlock" style="color: gray;">
+&lt;!-- Aici se injectează automat conținutul JS -->
+    </pre>
+
+    <script>
+        /* Încarcă JS-ul în interiorul paginii pentru documentație */
+        fetch("cookie-consent.js")
+            .then(r => r.text())
+            .then(t => {
+                document.getElementById("codeBlock").textContent = t;
+            });
+    </script>
+
+</main>
+
+<footer>
+    &copy; 2025 WebRT – Exemplu de implementare Cookie Consent
+</footer>
+
+<!-- Include efectiv scriptul de consimțământ -->
+<script src="cookie-consent.js"></script>
+
+</body>
+</html>
+
