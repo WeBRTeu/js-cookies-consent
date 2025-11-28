@@ -29,12 +29,50 @@ class CookieConsent {
         this.injectStyles();
         this.createElements();
         this.addEventListeners();
+        this.loadPrefs();
 
         if (this.prefs) {
             if (this.autoApply) this.applyConsent();
         } else {
             this.openModal();
         }
+    }
+
+    /** Salvează preferințele în localStorage și cookie */
+    savePrefs(prefs) {
+        this.prefs = prefs;
+        // Salvăm în localStorage
+        localStorage.setItem(this.storageKey, JSON.stringify(prefs));
+        // Salvăm în cookie (opțional)
+        const d = new Date();
+        d.setTime(d.getTime() + (this.cookieExpireDays*24*60*60*1000));
+        document.cookie = `${this.cookieName}=${encodeURIComponent(JSON.stringify(prefs))};expires=${d.toUTCString()};path=/`;
+
+        // Aplicăm imediat preferințele
+        this.applyConsent();
+    }
+
+    /** Încarcă preferințele din localStorage sau cookie */
+    loadPrefs() {
+        let prefs = null;
+        const stored = localStorage.getItem(this.storageKey);
+        if (stored) {
+            try {
+                prefs = JSON.parse(stored);
+            } catch(e) {
+                prefs = null;
+            }
+        } else {
+            // Încearcă din cookie
+            const match = document.cookie.match(new RegExp('(^| )' + this.cookieName + '=([^;]+)'));
+            if (match) {
+                try {
+                    prefs = JSON.parse(decodeURIComponent(match[2]));
+                } catch(e) { prefs = null; }
+            }
+        }
+        this.prefs = prefs;
+        return prefs;
     }
 
     injectStyles() {
