@@ -29,7 +29,6 @@ class CookieConsent {
         this.injectStyles();
         this.createElements();
         this.addEventListeners();
-        this.loadPrefs();
 
         if (this.prefs) {
             if (this.autoApply) this.applyConsent();
